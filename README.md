@@ -28,14 +28,7 @@ NOTE: `$cloudsubdir` MUST be set to a value. Setting it to an empty string so th
 # Required rclone Remotes
 
 ## Without Encryption ##
-Create a remote in rclone that points at the TOP LEVEL of your cloud storage provider (Do not enter a subfolder). Set the configuration option `$primaryremote` to the remote you created in rclone, and set the configuration option `$cloudsubdir` to a descriptive name.
-
-`$cloudsubdir` will be created at the top level of your cloud storage automatically when `update.cloud` is run the first time, and media will appear in subfolders beneath it. When this remote is mounted, you will see a subfolder named `$cloudsubdir` at `$clouddir`.
-
-## With Encryption ##
-First create a remote in rclone that points at the TOP LEVEL of your cloud storage provider. Then create a second remote that is a `crypt` remote who's `remote` is the name of your unencrypted remote, followed by `:encrypted`. Follow the instructions to complete setting up the encrypted remote (entering passwords, etc). It is recommended to choose to encrypt filenames. Set the configuration option `$primaryremote` to the encrypted remote you created in rclone, and set the the configuration option `$cloudsubdir` to a descriptive name.
-
-The first time `update.cloud` is run, a folder named `encrypted` will be created at the top level of your cloud storage, and a sub-folder with the encrypted value of `$cloudsubdir` will be created and media will appear encrypted in subfolders beneath it when browsing it via the web. When this remote is mounted with rclone, you will see a decrypted subfolder named `$cloudsubdir` at `$clouddir`.
+Create a remote in rclone that points at the TOP LEVEL of your cloud storage provider (Do not enter a subfolder). Now create another remote of type 'cache' that points at the first remote created. Set the configuration option `$primaryremote` to the `cache` remote you created in rclone, and set the configuration option `$cloudsubdir` to a descriptive name. `$cloudsubdir` will be created at the top level of your cloud storage automatically when `update.cloud` is run the first time, and media will appear in subfolders beneath it. When this remote is mounted, you will see a subfolder named `$cloudsubdir` at `$clouddir`.
 
 # Cloud Storage Setup
 There is a checking script included that looks for a specific file on cloud storage. Set in the configuration as `$checkfilename`, when Cloud Storage is mounted you should see this file at `$mediadir/$checkfilename`. Use rclone to upload a file of this name to your cloud storage `$cloudsubdir` folder. Example:
