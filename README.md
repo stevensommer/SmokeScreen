@@ -6,7 +6,7 @@ Reddit users /u/gesis and /u/ryanm91
 
 # Pre-requisites
 This project relies on:
-* [rclone](https://rclone.org/downloads/) 1.37+
+* [rclone](https://rclone.org/downloads/) 1.39+
 * unionfs-fuse `sudo apt-get install unionfs-fuse`
 * bc `sudo apt-get install bc`
 * [Plex Media Server](https://plex.tv)
@@ -26,9 +26,7 @@ The default configuration creates folders and mount points in your user's home d
 NOTE: `$cloudsubdir` MUST be set to a value. Setting it to an empty string so that media is placed at the very top level of your cloud storage is unsupported, and could have odd side-effects. Some of the provided scripts assume that this variable has a value, and as such may not work properly if omitted.
 
 # Required rclone Remotes
-
-## Without Encryption ##
-Create a remote in rclone that points at the TOP LEVEL of your cloud storage provider (Do not enter a subfolder). Now create another remote of type 'cache' that points at the first remote created. Set the configuration option `$primaryremote` to the `cache` remote you created in rclone, and set the configuration option `$cloudsubdir` to a descriptive name. `$cloudsubdir` will be created at the top level of your cloud storage automatically when `update.cloud` is run the first time, and media will appear in subfolders beneath it. When this remote is mounted, you will see a subfolder named `$cloudsubdir` at `$clouddir`.
+Create a remote in rclone that points at the TOP LEVEL of your cloud storage provider (Do not enter a subfolder). Then create another remote of type 'cache' that points at the first remote created. Set the configuration option `$primaryremote` to the `cache` remote you created in rclone, and set the configuration option `$cloudsubdir` to a descriptive name. `$cloudsubdir` will be created at the top level of your cloud storage automatically when `update.cloud` is run the first time, and media will appear in subfolders beneath it. When this remote is mounted, you will see a subfolder named `$cloudsubdir` at `$clouddir`.
 
 # Cloud Storage Setup
 There is a checking script included that looks for a specific file on cloud storage. Set in the configuration as `$checkfilename`, when Cloud Storage is mounted you should see this file at `$mediadir/$checkfilename`. Use rclone to upload a file of this name to your cloud storage `$cloudsubdir` folder. Example:
@@ -39,7 +37,7 @@ There is a checking script included that looks for a specific file on cloud stor
 Now mount the system by running the `check.mount` script. You should see your cloud storage mounted at `$clouddir` and you should see a union of `$localmedia` and `$clouddir/$cloudsubdir` at `$mediadir`. If you don't, stop here and resolve it before continuing.
 
 # Plex Media Server Configuration
-The newest (1.37 at time of this writing) version of rclone now includes options to limit API usage. While this means you can allow Plex to automatically scan your media libraries to keep them up to date, the `scan.media` script is still available so that you can schedule scans. Likewise, the `media.upgrade` script can be used by Sonarr/Radarr to scan newly downloaded episodes and movies in to Plex. These scripts are more reliable when using Plex with unionfs and cloud storage. They also allow scanning of large music libraries on systems where Plex's scanner fails to properly do so.
+The newest (1.39 at time of this writing) version of rclone now includes caching. While this means you can allow Plex to automatically scan your media libraries to keep them up to date, the `scan.media` script is still available so that you can schedule scans. Likewise, the `media.upgrade` script can be used by Sonarr/Radarr to scan newly downloaded episodes and movies in to Plex. These scripts are more reliable when using Plex with unionfs and cloud storage. They also allow scanning of large music libraries on systems where Plex's scanner fails to properly do so.
 
 ## Plex Scanning (Recommended Setup) ##
 * Settings -> Library -> Disable Update my library automatically
@@ -63,7 +61,7 @@ Media libraries in Plex must be configured:
 If you've created new libraries or modified the paths in existing libraries in Plex, cancel the scans that Plex initiates automatically. We will rescan everything once we're done configuring the other software.
 
 # Sonarr and Radarr Configuration
-Sonarr and Radarr should be configured to use `$mediadir/$media_shows` and `$mediadir/$media_movie` as the root folders for all series/movies. The included script `media.upgrade` can be used by Sonarr and Radarr to automatically remove old versions of files when Sonarr/Radarr import something that already exists and also initiate a Plex scan of newly added media. If you do not use this script, you will need to manually clean up unionfs metadata files and old versions of shows/movies from your cloud storage.
+Sonarr and Radarr should be configured to use `$mediadir/$media_shows` and `$mediadir/$media_movie` as the root folders for all series/movies. The included script `media.upgrade` should be used by Sonarr and Radarr to automatically remove old versions of files when Sonarr/Radarr import something that already exists and also initiate a Plex scan of newly added media. If you do not use this script, you will need to manually clean up unionfs metadata files and old versions of shows/movies from your cloud storage.
 
 Media that these tools download will follow the path:
 
