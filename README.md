@@ -45,18 +45,16 @@ The newest (1.39 at time of this writing) version of rclone now includes caching
 * Settings -> Library -> Disable Include music libraries in automatic updates
 * Settings -> Library -> Disable Update my library periodically
 * Settings -> Scheduled Tasks -> Disable Update all libraries during maintenance
+* Settings -> Library -> Disable Empty trash automatically after every scan (Prevents media getting removed if your mount fails)
+* Settings -> Library -> Disable Allow media deletion (Media deletion in Plex when using unionfs is painful)
+* Settings -> Scheduled Tasks -> Disable Upgrade media analysis during maintenance (Optional)
+* Settings -> Scheduled Tasks -> Disable Perform extensive media analysis during maintenance (Optional)
 
 ## Plex Media Libraries ##
 Media libraries in Plex must be configured:
 * Plex should look at `$plex_shows_folder` for TV Series
 * Plex should look at `$plex_movie_folder` for Movies
 * Plex should look at `$plex_music_folder` for Music
-
-## Additional Options (Recommended) ##
-* Settings -> Library -> Disable Empty trash automatically after every scan
-* Settings -> Library -> Disable Allow media deletion
-* Settings -> Scheduled Tasks -> Disable Upgrade media analysis during maintenance
-* Settings -> Scheduled Tasks -> Disable Perform extensive media analysis during maintenance
 
 If you've created new libraries or modified the paths in existing libraries in Plex, cancel the scans that Plex initiates automatically. We will rescan everything once we're done configuring the other software.
 
