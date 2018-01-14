@@ -16,7 +16,7 @@ mkdir -p "${mediadir}"
 
 #Cloud data
 echo "$(date "+%d.%m.%Y %T") INFO: Mounting ${clouddir}"
-$rclonebin mount ${rclonemountopts} ${primaryremote}: "${clouddir}" &
+$rclonebin mount ${rclonemountopts} ${cacheremote}: "${clouddir}" &
 if [ ! "${cloudsubdir}" = "" ]; then
 	while [ ! -d "${clouddir}/${cloudsubdir}" ]; do
 		sleep 10
