@@ -25,7 +25,7 @@ Group=myuser`
 
 Then:  
 `sudo systemctl daemon-reload  
-sudo service plexmediaserver start`
+sudo service plexmediaserver start`  
 
 
 # Installation
