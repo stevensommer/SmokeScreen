@@ -19,13 +19,13 @@ At the command line:
 `sudo systemctl edit plexmediaserver`  
 
 This is the content to be placed in the editor  
-`[Service]  
-User=myuser  
-Group=myuser`  
+`[Service]`  
+`User=myuser`  
+`Group=myuser`  
 
 Then:  
-`sudo systemctl daemon-reload  
-sudo service plexmediaserver start`  
+`sudo systemctl daemon-reload`  
+`sudo service plexmediaserver start`  
 
 
 # Installation
