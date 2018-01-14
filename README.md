@@ -11,7 +11,8 @@ This project relies on:
 * bc `sudo apt-get install bc`
 * [Plex Media Server](https://plex.tv)
 * Sonarr, Radarr, SABnzbd, Torrent Clients (optional)
-* Plex running as the same user as the scripts:
+
+IMPORTANT: Plex must run as the SAME USER as the scripts. On Ubuntu, this is done by:
 
 At the command line:  
 `sudo service plexmediaserver stop`  
