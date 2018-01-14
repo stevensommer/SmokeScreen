@@ -1,5 +1,5 @@
 # SmokeScreen
-Host your Plex media with rclone on cloud storage with automated uploading and local cleanup of new media.
+Host your Plex media with rclone on cloud storage with automated uploading and local cleanup of new media on Ubuntu Linux. May work on other flavors, but could require modifications.
 
 # Thank You
 Reddit users /u/gesis and /u/ryanm91
@@ -10,8 +10,23 @@ This project relies on:
 * unionfs-fuse `sudo apt-get install unionfs-fuse`
 * bc `sudo apt-get install bc`
 * [Plex Media Server](https://plex.tv)
-* Plex running as the same user as the scripts (VERY IMPORTANT)
 * Sonarr, Radarr, SABnzbd, Torrent Clients (optional)
+* Plex running as the same user as the scripts:
+
+At the command line:
+`sudo service plexmediaserver stop`
+`sudo chown -R myuser:myuser /var/lib/plexmediaserver`
+`sudo systemctl edit plexmediaserver`
+
+This is the content to be placed in the editor
+`[Service]
+User=myuser
+Group=myuser`
+
+Then:
+`sudo systemctl daemon-reload
+sudo service plexmediaserver start`
+
 
 # Installation
 clone the repo then
