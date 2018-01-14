@@ -26,7 +26,11 @@ The default configuration creates folders and mount points in your user's home d
 NOTE: `$cloudsubdir` MUST be set to a value. Setting it to an empty string so that media is placed at the very top level of your cloud storage is unsupported, and could have odd side-effects. Some of the provided scripts assume that this variable has a value, and as such may not work properly if omitted.
 
 # Required rclone Remotes
-Create a remote in rclone that points at the TOP LEVEL of your cloud storage provider (Do not enter a subfolder). This remote will be the `$primaryremote` in the configuration. Then create another remote of type 'cache' that points at the first remote created. This will be the `$cacheremote` configuration option. Set the configuration option `$cloudsubdir` to a descriptive name. `$cloudsubdir` will be created at the top level of your cloud storage automatically when `update.cloud` is run the first time, and media will appear in subfolders beneath it. When this remote is mounted, you will see a subfolder named `$cloudsubdir` at `$clouddir`.
+Create a remote in rclone that points at the TOP LEVEL of your cloud storage provider (Do not enter a subfolder). This remote will be the `$primaryremote` in the configuration. Then create another remote of type 'cache' that points at the first remote. This will be the `$cacheremote` configuration option. Set the configuration option `$cloudsubdir` to a descriptive name. `$cloudsubdir` will be created at the top level of your cloud storage automatically when `update.cloud` is run the first time, and media will appear in subfolders beneath it. When this remote is mounted, you will see a subfolder named `$cloudsubdir` at `$clouddir`.
+
+If you need assistance creating remotes in rclone, visit [their site](https://rclone.org/).
+
+The default configuration options are `$primaryremote` to be called `GSUITE`, `$cacheremote` to be called `GSUITE-CACHE` and `$clouddir` to be `Media`.
 
 # Cloud Storage Setup
 There is a checking script included that looks for a specific file on cloud storage. Set in the configuration as `$checkfilename`, when Cloud Storage is mounted you should see this file at `$mediadir/$checkfilename`. Use rclone to upload a file of this name to your cloud storage `$cloudsubdir` folder. Example:
