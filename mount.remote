@@ -9,6 +9,11 @@ sleep 10
 # Mount drives
 echo "$(date "+%d.%m.%Y %T") INFO: Mounting filesystems"
 
+if [ "${cloudsubdir}" = "" ]; then
+	echo "configuration option cloudsubdir must be set to a value!"
+	exit 1
+fi
+
 # Make sure all folders exist
 echo "$(date "+%d.%m.%Y %T") INFO: Creating mountpoints"
 mkdir -p "${clouddir}"
