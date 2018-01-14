@@ -8,6 +8,12 @@ if pidof -o %PPID -x "$(basename "$0")"; then
     exit 3
 fi
 
+if [ "${cloudsubdir}" = "" ]; then
+	echo "configuration option cloudsubdir must be set to a value!"
+	/bin/bash ${bindir}/unmount.remote 2>&1
+	exit 1
+fi
+
 if [ ! "${1}" = "" ]; then
 	echo "$(date "+%d.%m.%Y %T") INFO: Force unmount -- parameter ${1}"
 	/bin/bash ${bindir}/unmount.remote 2>&1
